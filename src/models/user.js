@@ -1,28 +1,27 @@
 const mongoose = require('mongoose')
-const validator = require('validator')
-const chalk = require('chalk')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const Task = require('./task')
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
         trim: true
     },
-    email: {
-        type: String,
+    phone: {
+        type: Number,
         required: true,
-        unique: true,
         trim: true,
+    },
+    bookedRoomId: {
+        type: mongoose.Schema.Types.ObjectId,
     },
     password: {
         type: String,
         required: true,
         trim: true,
     },
-    location: {
-        type: String,
+    creditCard: {
+        type: Number,
         trim: true
     },
     tokens: [{
@@ -37,12 +36,9 @@ const userSchema = new mongoose.Schema({
     }
 }, {
     timestamps: true
-})
-
-userSchema.virtual('tasks', {
-    ref: 'Task',
-    localField: '_id',
-    foreignField: 'owner'
+},
+{
+    collection: 'hotelUsers'
 })
 
 userSchema.methods.toJSON = function () {
@@ -66,8 +62,8 @@ userSchema.methods.generateAuthToken = async function () {
     return token
 }
 
-userSchema.statics.findByCredentials = async (email, password) => {
-    const user = await User.findOne({ email: email })
+userSchema.statics.findByCredentials = async (name, password) => {
+    const user = await User.findOne({ name: name })
 
     if (!user) {
         throw new Error('Unable to login.')

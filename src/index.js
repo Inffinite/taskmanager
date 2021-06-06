@@ -1,12 +1,10 @@
 const express = require('express')
 require('./db/mongoose')
 const userRouter = require('./routers/user')
-const taskRouter = require('./routers/task')
-const productRouter = require('./routers/product')
 const orderRouter = require('./routers/order')
+const roomsRouter = require('./routers/rooms')
 const chalk = require('chalk')
 const cors = require('cors')
-
 const app = express()
 const port = process.env.PORT
 
@@ -20,9 +18,8 @@ app.use(function (req, res, next) {
 
 app.use(express.json())
 app.use(userRouter)
-app.use(taskRouter)
-app.use(productRouter)
 app.use(orderRouter)
+app.use(roomsRouter)
 
 app.listen(port, () => {
     console.log(chalk.yellow('[+] Server is up on port ' + port))
