@@ -8,7 +8,11 @@ const cors = require('cors')
 const app = express()
 const port = process.env.PORT
 
-app.use(cors())
+const corsOptions = {
+    origin: 'https://60bca68b5c3a87da3d70dde0--brave-aryabhata-26a3da.netlify.app/'
+}
+
+app.use(cors(corsOptions))
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*")
