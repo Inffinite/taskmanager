@@ -7,21 +7,13 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    phone: {
-        type: Number,
-        required: true,
-        trim: true,
-    },
-    bookedRoomId: {
-        type: mongoose.Schema.Types.ObjectId,
-    },
     password: {
         type: String,
         required: true,
         trim: true,
     },
-    creditCard: {
-        type: Number,
+    email: {
+        type: String,
         trim: true
     },
     tokens: [{
@@ -36,9 +28,6 @@ const userSchema = new mongoose.Schema({
     }
 }, {
     timestamps: true
-},
-{
-    collection: 'hotelUsers'
 })
 
 userSchema.methods.toJSON = function () {
